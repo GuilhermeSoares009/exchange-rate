@@ -1,9 +1,9 @@
 # Planejamento e Estruturação
 
-- [ X ] **Definir os requisitos**
-  - [ X ] Funcionalidades: Mostrar a taxa de câmbio
-  - [ X ] Tecnologias: React e Laravel
-  - [ X ] Arquitetura de 3 camadas
+- [X] **Definir os requisitos**
+  - [X] Funcionalidades: Mostrar a taxa de câmbio
+  - [X] Tecnologias: React e Laravel
+  - [X] Arquitetura de 3 camadas
 
 - [ ] **Conceitos para aplicar**
   - [ ] 3 camadas de arquitetura - Apresentação, lógica de negócios e Acesso aos Dados

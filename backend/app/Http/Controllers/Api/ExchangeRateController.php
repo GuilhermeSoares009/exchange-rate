@@ -3,31 +3,29 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Services\ExchangeRateService;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class ExchangeRateController extends Controller
 {
-    public function getRate($currency) {
-        
-        $client = new Client();
-        $apiKey = env('EXTERNAL_API_KEY');
-        $url = "https://api.exemplo.com/latest?api_key={$apiKey}&symbols={$currency}";
 
-        try {
-            $response = $client->get($url);
-            $data = json_decode($response->getBody(),true);
+    protected $exchangeRate;
 
-            if (isset($data['rates'][$currency])) {
-                $rate = $data['rates'][$currency];
-                return response()->json(['currency'=>$currency,'rate'=>$rate]);
-            }else{
-                return response()->json(['error' => 'Rate not found'], 404);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to fetch excgange rate',
-            'message' => $e->getMessage()]);
-        }
-
+    public function __construct(ExchangeRateService $exchangeRate) {
+        $this->exchangeRate = $exchangeRate;
     }
+
+    public function showCurrentRate($currency,$date) {
+        $rate = $this->exchangeRate->getCurrentExchangeRate($currency, $date);
+        return response()->json(['rate' => $rate]);
+    }
+
+    public function showHistoricalRate($currency,$date)
+    {
+        $rate = $this->exchangeRate->getHistoricalExchangeRate($currency,$date);
+
+        return response()->json(['rate' => $rate]);
+    }
+
 }

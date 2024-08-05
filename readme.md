@@ -23,13 +23,13 @@
 
 # Implementação da Camada Lógica de Negócio (Laravel)
 
-- [ ] **Criar projeto Laravel**
-  - [ ] Pasta chamada `backend`
-  - [ ] Configure o ambiente
+- [X] **Criar projeto Laravel**
+  - [X] Pasta chamada `backend`
+  - [X] Configure o ambiente
 
-- [ ] **Implementação dos Endpoints da API**
-  - [ ] Roteamento - Definir rotas da API
-  - [ ] Controladores
+- [X] **Implementação dos Endpoints da API**
+  - [X] Roteamento - Definir rotas da API
+  - [X] Controladores
 
 - [ ] **Implementação dos Serviços**
   - [ ] Services - Lógica de obtenção de taxas de câmbio e histórico

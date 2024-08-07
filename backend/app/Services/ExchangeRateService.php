@@ -2,31 +2,34 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 
 class ExchangeRateService
 {
 
     protected $client;
-    protected $apiUrl = 'Url';
+    protected $apiUrl = 'https://openexchangerates.org/api/';
 
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
-    public function getCurrentExchangeRate($currency) {
-        $response = $this->client->get($this->apiUrl. 'USD');
+    public function getCurrentExchangeRate() {
+        $url = $this->apiUrl.'latest.json?app_id='.env('EXTERNAL_API_KEY');
+        $response = $this->client->get($url);
         $data = json_decode($response->getBody(),true);
-
-        return $data['rates'][$currency] ?? null;
+        
+        return $data;
     }
     
-    public function getHistoricalExchangeRate($currency,$date){
-        $apiUrl = "url_api";
-        $response = $this->client->get($apiUrl);
+    public function getHistoricalExchangeRate(){
+        $date = Carbon::now()->toDateString();
+        $url = $this->apiUrl."historical/{$date}.json?app_id=".env('EXTERNAL_API_KEY');
+        $response = $this->client->get($url);
         $data = json_decode($response->getBody(),true);
 
-        return $data['rates'][$currency] ?? null;
+        return $data;
     }
 }

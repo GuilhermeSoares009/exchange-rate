@@ -16,14 +16,14 @@ class ExchangeRateController extends Controller
         $this->exchangeRate = $exchangeRate;
     }
 
-    public function showCurrentRate($currency,$date) {
-        $rate = $this->exchangeRate->getCurrentExchangeRate($currency, $date);
+    public function showCurrentRate() {
+        $rate = $this->exchangeRate->getCurrentExchangeRate();
         return response()->json(['rate' => $rate]);
     }
 
-    public function showHistoricalRate($currency,$date)
+    public function showHistoricalRate()
     {
-        $rate = $this->exchangeRate->getHistoricalExchangeRate($currency,$date);
+        $rate = $this->exchangeRate->getHistoricalExchangeRate();
 
         return response()->json(['rate' => $rate]);
     }

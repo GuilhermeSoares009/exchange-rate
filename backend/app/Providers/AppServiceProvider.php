@@ -12,13 +12,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(\App\Services\ExchangeRateService::class, function($app){
-            return new \App\Services\ExchangeRateService();
-        });
 
         $this->app->singleton(Client::class, function () {
             return new Client();
         });
+        $this->app->singleton(\App\Services\ExchangeRateService::class, function($app){
+            return new \App\Services\ExchangeRateService($app->make(Client::class));
+        });
+
     }
 
     /**

@@ -11,24 +11,28 @@ class ExchangeRateService
     protected $client;
     protected $apiUrl = 'https://openexchangerates.org/api/';
 
-    public function __construct(Client $client)
+    public function __construct()
     {
-        $this->client = $client;
+        $this->client = new Client([
+            'verify' => false,
+        ]);
     }
 
-    public function getCurrentExchangeRate() {
-        $url = $this->apiUrl.'latest.json?app_id='.env('EXTERNAL_API_KEY');
+    public function getCurrentExchangeRate()
+    {
+        $url = $this->apiUrl . 'latest.json?app_id=' . env('EXTERNAL_API_KEY');
         $response = $this->client->get($url);
-        $data = json_decode($response->getBody(),true);
-        
+        $data = json_decode($response->getBody(), true);
+
         return $data;
     }
-    
-    public function getHistoricalExchangeRate(){
+
+    public function getHistoricalExchangeRate()
+    {
         $date = Carbon::now()->toDateString();
-        $url = $this->apiUrl."historical/{$date}.json?app_id=".env('EXTERNAL_API_KEY');
+        $url = $this->apiUrl . "historical/{$date}.json?app_id=" . env('EXTERNAL_API_KEY');
         $response = $this->client->get($url);
-        $data = json_decode($response->getBody(),true);
+        $data = json_decode($response->getBody(), true);
 
         return $data;
     }
